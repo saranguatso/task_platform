@@ -5,7 +5,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 
 //Set into empty object if we don't have the db connection
 //Initialize the cached connection
-let cached = (global as any).mongoose || { conn:  null, promise: null };
+let cached = (global as any).mongoose || { conn: null, promise: null };
 
 //Attempt to retrieve mongoDB object
 export const connectToDatabase = async () => {
