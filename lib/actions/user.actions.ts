@@ -12,21 +12,15 @@ import { handleError } from "@/lib/utils"
 
 import { CreateUserParams, UpdateUserParams } from "@/types"
 
-export const createUser = async (user: CreateUserParams) => {
-    try{
-        //We don't have a server yet, it must  run only when we call upon it
-        //Read  more from Vercel's Serverless Functions
-        await connectToDatabase();
-        //We don't need  a connection with a database all the time, if we have cached connection, we can use it
+export async function createUser(user: CreateUserParams) {
+  try {
+    await connectToDatabase()
 
-        const newUser = await User.create(user);
-
-        //This returns the data that we pass throught the front-end
-        return JSON.parse(JSON.stringify(newUser));
-    }
-    catch (error) {
+    const newUser = await User.create(user)
+    return JSON.parse(JSON.stringify(newUser))
+  } catch (error) {
     handleError(error)
-    }
+  }
 }
 
 export async function getUserById(userId: string) {
