@@ -13,7 +13,7 @@ export const headerLinks = [
     },
   ]
   
-  export const eventDefaultValues = {
+  export const taskDefaultValues = {
     title: '',
     description: '',
     location: '',
