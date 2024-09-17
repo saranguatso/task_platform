@@ -14,7 +14,7 @@ const Header = () => {
     <header className="w-full border-b">
         <div className="wrapper flex items-center justify-between">
         <Link href="/" className="w-36">
-            <Image src="/assets/images/small_logo.svg" alt="Helpie coach" width={128} height={38} 
+            <Image src="/assets/images/small_logo.svg" alt="Helpie coach - simplifying relocation" width={128} height={38} 
             />
         </Link>
 

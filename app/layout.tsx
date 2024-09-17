@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "Helpie coach",
   description: "Automated immigration and relocation support tools and services",
   icons : {
-    icon: '/assets/images/logo.svg',
+    icon: '/assets/images/logo_new.svg',
   }
 };
 
