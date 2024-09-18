@@ -250,7 +250,10 @@ const TaskForm = ({userId, type}:  TaskFormPromps) => {
                                     <FormControl>
                                         <div className="flex items-center">
                                             <label htmlFor="isFree" className="whitespace-nowrap pr-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Free Task</label>
-                                            <Checkbox id="isFree" className="mr-2 h-5 w-5 border-2 border-primary-500"/>
+                                            <Checkbox 
+                                            onCheckedChange={field.onChange}
+                                            checked={field.value}
+                                            id="isFree" className="mr-2 h-5 w-5 border-2 border-primary-500"/>
                                         </div>
                                     </FormControl>
                                     
@@ -304,7 +307,7 @@ const TaskForm = ({userId, type}:  TaskFormPromps) => {
             `${type} Task`
             }
         </Button>
-        
+
       </form>
     </Form>
   )
