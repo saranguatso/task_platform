@@ -16,6 +16,10 @@ import { Input } from "@/components/ui/input"
 import { taskFormSchema } from "@/lib/validator"
 import { z } from "zod"
 import { taskDefaultValues } from "@/constants"
+import Dropdown from "./Dropdown"
+import { Textarea } from "@/components/ui/textarea"
+import { FileUpload } from "./FileUpload"
+import { useState } from "react"
 
 
 type TaskFormPromps = {
@@ -24,6 +28,8 @@ type TaskFormPromps = {
 }
 
 const TaskForm = ({userId, type}:  TaskFormPromps) => {
+
+    const [files, setFiles] = useState<File[]>([]);
 
     const  initialValues = taskDefaultValues;
 
@@ -44,7 +50,7 @@ const TaskForm = ({userId, type}:  TaskFormPromps) => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
 
-        <div className="flex flex-col  gap-5  md:flex-row">
+        <div className="flex flex-col gap-5 md:flex-row">
             <FormField
             control={form.control}
             name="title"
@@ -59,8 +65,59 @@ const TaskForm = ({userId, type}:  TaskFormPromps) => {
                 </FormItem>
             )}
             />
+
+            <FormField
+            control={form.control}
+            name="categoryId"
+            render={({ field }) => (
+                <FormItem className="w-full">
+                
+                <FormControl>
+                    <Dropdown onChangeHandler={field.onChange} value={field.value} />
+                </FormControl>
+                
+                <FormMessage />
+                </FormItem>
+            )}
+            />
         </div>
       
+        <div className="flex flex-col gap-5 md:flex-row">
+            <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                    <FormItem className="w-full">
+                    
+                    <FormControl className="h-32">
+                        <Textarea placeholder="Description" {...field} 
+                        className="text-area rounded-2xl"
+                        />
+                    </FormControl>
+                    
+                    <FormMessage />
+                    </FormItem>
+                )}
+            />
+
+            <FormField
+                control={form.control}
+                name="imageUrl"
+                render={({ field }) => (
+                    <FormItem className="w-full">
+                    
+                    <FormControl className="h-32">
+                        <FileUpload onFieldChange={field.onChange}
+                        imageUrl={field.value} setFiles={setFiles}
+                        />
+                    </FormControl>
+                    
+                    <FormMessage />
+                    </FormItem>
+                        )}
+            />
+        </div>
+
         <Button type="submit">Submit</Button>
       </form>
     </Form>
