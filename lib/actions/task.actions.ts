@@ -1,0 +1,50 @@
+'use server'
+
+import { revalidatePath } from 'next/cache'
+
+import { connectToDatabase } from '@/lib/database'
+
+import User from "@/lib/database/models/user.model"
+import Task from "@/lib/database/models/task.model"
+import Category from "@/lib/database/models/category.model"
+import { handleError } from '@/lib/utils'
+
+import { CreateTaskParams } from "@/types"
+
+const getCategoryByName = async (name: string) => {
+    return Category.findOne({ name: { $regex: name, $options: 'i' } })
+  }
+  
+  const populateEvent = (query: any) => {
+    return query
+      .populate({ path: 'organizer', model: User, select: '_id firstName lastName' })
+      .populate({ path: 'category', model: Category, select: '_id name' })
+  } 
+
+  //Create a task
+export async function createTask({ task, userId, path }: CreateTaskParams) {
+        try {
+            console.log('Creating task');
+            await connectToDatabase();
+
+            const organizer = await User.findById(userId);
+
+            if(!organizer) {
+                throw new Error('Organizer not found');
+            }
+
+            const newTask = await Task.create({ 
+                ...task, 
+                category: task.categoryId,  
+                organizer: userId
+            });
+
+            revalidatePath(path);
+
+            return JSON.parse(JSON.stringify(newTask));
+
+        } catch (error) {
+            console.log(error);
+            handleError(error);
+        }        
+    }

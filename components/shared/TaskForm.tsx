@@ -23,8 +23,11 @@ import { FileUpload } from "./FileUpload"
 import { useState } from "react"
 import DatePicker from "react-datepicker";
 import { Checkbox } from "@/components/ui/checkbox"
+import { useUploadThing as uploadThing } from "@/lib/uploadthing";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { useRouter } from "next/navigation"
+import { createTask } from "@/lib/actions/task.actions"
 
 type TaskFormPromps = {
     userId: string;
@@ -35,7 +38,10 @@ const TaskForm = ({userId, type}:  TaskFormPromps) => {
 
     const [files, setFiles] = useState<File[]>([]);
     const  initialValues = taskDefaultValues;
+    const router = useRouter();
 
+    const { startUpload } = uploadThing('imageUploader');
+    
   // 1. Define your form.
   const form = useForm<z.infer<typeof taskFormSchema>>({
     resolver: zodResolver(taskFormSchema),
@@ -43,10 +49,37 @@ const TaskForm = ({userId, type}:  TaskFormPromps) => {
   })
  
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof taskFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof taskFormSchema>) {
+    const taskData = values;
+
+    let uploadedImageUrl = values.imageUrl;
+
+    if(files.length > 0) {
+        const uploadedImages = await startUpload(files);
+
+        if(!uploadedImages) {
+            return;
+        }
+
+        uploadedImageUrl = uploadedImages[0].url;
+    }
+
+    if(type === 'Create') {
+        try {
+          const newTask = await createTask({
+            task: { ...values, imageUrl: uploadedImageUrl },
+            userId,
+            path: '/profile'
+          })
+  
+          if(newTask) {
+            form.reset();
+            router.push(`/tasks/${newTask._id}`)
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
   }
 
   return (
@@ -314,3 +347,7 @@ const TaskForm = ({userId, type}:  TaskFormPromps) => {
 }
 
 export default TaskForm
+
+function useUploadThing(arg0: string): { startUpload: any } {
+    throw new Error("Function not implemented.")
+}
