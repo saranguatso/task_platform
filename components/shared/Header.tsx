@@ -31,7 +31,7 @@ const Header = () => {
             </SignedIn>
 
             <SignedOut>
-                <SignInButton /> 
+                {/*<SignInButton />*/}
                 <Button asChild className="rounded-full" size="lg">
                     <Link href="/sign-in">
                     Login

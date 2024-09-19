@@ -20,10 +20,15 @@ module.exports = withUt({
     extend: {
       colors: {
         primary: {
-          500: '#624CF5',
-          50: ' #F6F8FD',
+          //#624CF5, changed to #4c68d7 (instagram color)
+          500: '#0d0c22',
+          //#F6F8FD, changed to XX
+          50: '#f8f7f4',
           DEFAULT: '#624CF5',
           foreground: 'hsl(var(--primary-foreground))',
+        },
+        hover: {
+          100: 'color:#565564',
         },
         coral: {
           500: '#15BF59',
@@ -34,6 +39,7 @@ module.exports = withUt({
           500: '#757575',
           400: '#AFAFAF', // Disabled - color name in figma
           50: '#F6F6F6', // White Grey - color name in figma
+          89: '#71717a', // Light Grey - color name from shadcn
         },
         black: '#000000',
         white: '#FFFFFF',

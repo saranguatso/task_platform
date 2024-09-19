@@ -16,7 +16,7 @@ export default function Home() {
             </p>
 
             <div className="flex items-center justify-center">
-            <Button size="lg" asChild className="button w-full sm:w-fit">
+            <Button size="lg" asChild className="bg-primary-500 button w-full sm:w-fit">
               <Link href="#tasks">
               Explore Now
               </Link>

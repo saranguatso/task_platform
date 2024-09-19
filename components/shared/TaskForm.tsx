@@ -299,7 +299,7 @@ const TaskForm = ({userId, type}:  TaskFormPromps) => {
         type="submit"
         size="lg"
         disabled={form.formState.isSubmitting}
-        className="button col-span-2 w-full"
+        className="bg-primary-500 button col-span-2 w-full"
         >
             {form.formState.isSubmitting ? (
             'Submitting...'
