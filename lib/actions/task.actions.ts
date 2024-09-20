@@ -33,6 +33,11 @@ export async function createTask({ task, userId, path }: CreateTaskParams) {
                 throw new Error('Organizer not found');
             }
 
+            // console.log({
+            //     categoryId: task.categoryId,
+            //     organizerId: userId,
+            // })
+
             const newTask = await Task.create({ 
                 ...task, 
                 category: task.categoryId,  

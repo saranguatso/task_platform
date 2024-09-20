@@ -3,19 +3,29 @@
 import { revalidatePath } from 'next/cache'
 
 // import { connectToDB } from '@/lib/mongodb/mongoose'
-import { connectToDatabase } from "@/lib/database"
-import User from "@/lib/database/models/user.model"
-import Order from "@/lib/database/models/order.model"
-import Task from "@/lib/database/models/task.model"
+// import { connectToDatabase } from "@/lib/database"
+// import { CreateCategoryParams } from "@/types"
+// import { handleError } from "../utils"
+// import { connectToDatabase } from "../database"
+// import Category from "../database/models/category.model"
+// import User from "@/lib/database/models/user.model"
+// import Order from "@/lib/database/models/order.model"
+// import Task from "@/lib/database/models/task.model"
 
-import { handleError } from "@/lib/utils"
+import { handleError } from "../utils"
+import { connectToDatabase } from '../database'
+
+import User from "../database/models/user.model"
+import Order from "../database/models/order.model"
+import Task from "../database/models/task.model"
 
 import { CreateUserParams, UpdateUserParams } from "@/types"
 
 export async function createUser(user: CreateUserParams) {
   try {
+    console.log('Creating user before connecting to database');
     await connectToDatabase();
-
+    
     const newUser = await User.create(user);
     return JSON.parse(JSON.stringify(newUser));
   } catch (error) {
@@ -25,9 +35,9 @@ export async function createUser(user: CreateUserParams) {
 
 export async function getUserById(userId: string) {
     try {
-      await connectToDatabase()
+      await connectToDatabase();
   
-      const user = await User.findById(userId)
+      const user = await User.findById(userId);
   
       if (!user) throw new Error('Error: User not found')
       return JSON.parse(JSON.stringify(user))

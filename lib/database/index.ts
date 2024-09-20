@@ -10,7 +10,7 @@ let cached = (global as any).mongoose || { conn: null, promise: null };
 //Attempt to retrieve mongoDB object
 export const connectToDatabase = async () => {
     if (cached.conn) return cached.conn;
-
+    console.log('Connecting to database under database/index.ts');
     if(!MONGODB_URI) throw new Error('MONGODB_URI is not missing');
 
     cached.promise = cached.promise || mongoose.connect(MONGODB_URI, {
