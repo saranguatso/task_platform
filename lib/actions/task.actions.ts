@@ -26,6 +26,7 @@ export async function createTask({ task, userId, path }: CreateTaskParams) {
         try {
             console.log('Creating task');
             await connectToDatabase();
+            console.log({userId});
 
             const organizer = await User.findById(userId);
 
@@ -33,10 +34,10 @@ export async function createTask({ task, userId, path }: CreateTaskParams) {
                 throw new Error('Organizer not found');
             }
 
-            // console.log({
-            //     categoryId: task.categoryId,
-            //     organizerId: userId,
-            // })
+            console.log({
+                categoryId: task.categoryId,
+                organizerId: userId,
+            })
 
             const newTask = await Task.create({ 
                 ...task, 
