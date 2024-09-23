@@ -111,6 +111,53 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <section id="actions" className="wrapper my-8 flex flex-col gap-8 md:gap-12">
+      
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2">
+          <div className="flex flex-col gap-5 justify-start">
+            <h2 className="h2-bold">
+            Get started with Helpie coach in three easy steps
+            </h2>
+            <h3>
+            To support your organization and your unique needs, we'd like to understand your needs.
+            </h3>
+            <Button size="lg" asChild className="button w-full sm:w-fit">
+              <Link href="mailto:hello@helpie.coach">
+              Book a call
+              </Link>
+            </Button>
+          </div>
+
+          <div className="flex flex-col gap-5 justify-start">
+            <div className="flex flex-col gap-5 rounded-2xl bg-gray-50 py-5 px-5">
+                <div className="flex justify-start">
+                  <h5 className="h5-bold">1. Book a call with us</h5>
+                </div>
+                  <p>
+                  Book a call with our local sales representative. We'll set you up with a free account, ready to suit your team's needs.                  </p>
+              </div>
+
+              <div className="flex flex-col gap-5 rounded-2xl bg-gray-50 py-5 px-5">
+                <div className="flex justify-start">
+                  <h5 className="h5-bold">2. Add and onboard your team</h5>
+                </div>
+                  <p>
+                  From new hires to your existing expat workforce, onboard them effortlessly onto our platform.                  </p>
+              </div>
+
+              <div className="flex flex-col gap-5 rounded-2xl bg-gray-50 py-5 px-5">
+                <div className="flex justify-start">
+                  <h5 className="h5-bold">3. Explore our dedicated local expert support</h5>
+                </div>
+                  <p>
+                  Our dedicate team will help your colleagues, from navigating personal number application to exploring housing neighbourhoods with our expert network.              
+                  </p>
+                </div>
+          </div>
+        </div>
+
+      </section>
     </>
   );
 }
