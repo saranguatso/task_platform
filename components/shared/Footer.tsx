@@ -10,7 +10,7 @@ const Footer = () => {
             </Link>
 
             <p>
-              2024 Helpie Group AB. All rights reserved.
+              © 2024 Helpie Group AB. All rights reserved.
             </p>
           </div>
       </footer>
