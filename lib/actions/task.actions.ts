@@ -15,14 +15,14 @@ const getCategoryByName = async (name: string) => {
     return Category.findOne({ name: { $regex: name, $options: 'i' } })
   }
   
-  const populateEvent = (query: any) => {
+const populateEvent = async (query: any) => {
     return query
       .populate({ path: 'organizer', model: User, select: '_id firstName lastName' })
       .populate({ path: 'category', model: Category, select: '_id name' })
   } 
 
   //Create a task
-export async function createTask({ task, userId, path }: CreateTaskParams) {
+export const createTask = async({ task, userId, path }: CreateTaskParams) => {
         try {
             console.log('Creating task');
             await connectToDatabase();
@@ -53,4 +53,21 @@ export async function createTask({ task, userId, path }: CreateTaskParams) {
             console.log(error);
             handleError(error);
         }        
+    }
+
+    export const getTaskById =  async (taskId:string) => {
+        try {
+            await connectToDatabase();
+
+            const task =  await populateEvent(Task.findById(taskId));
+
+            if(!task) {
+                throw new Error('Task not found');
+            }
+
+            return JSON.parse(JSON.stringify(task));
+
+        } catch (error) {
+            handleError(error);
+        }
     }
